@@ -89,7 +89,7 @@ export default {
         id="carBrand"
         v-model="selectedCarBrand"
       >
-        <option v-for="brand of brandList" :value="brand">{{ brand }}</option>
+        <option v-for="(brand, index) of brandList" :key="index" :value="brand">{{ brand }}</option>
       </select>
     </div>
     <div>
@@ -125,7 +125,7 @@ export default {
         Ro'yxatdan o'tkazish
       </button>
     </div>
-
+    <h1 class="text-center mb-4">Turargohdagi mashinalar haqida ma'lumot</h1>
     <table class="table table-bordered" width="100%">
       <thead>
         <tr>
@@ -137,7 +137,7 @@ export default {
         </tr>
       </thead>
       <tbody>
-        <tr v-for="car of cars">
+        <tr v-for="(car, index) of cars" :key="index">
           <td>{{ car.parkingLot }}</td>
           <td>{{ car.model }}</td>
           <td>{{ car.brand }}</td>
@@ -146,11 +146,15 @@ export default {
         </tr>
       </tbody>
     </table>
-
-    <h1>Turargoh statistikasi</h1>
+    <h1 class="text-center mb-4">Turargoh statistikasi</h1>
     <p>Bo'sh o'rinlar: {{ freeSpaces }}</p>
     <p>Band o'rinlar miqdori: {{ occupiedSpaces }}</p>
-    <p>Mashinalar rusumi miqdori: {{carCounts}}</p>
+    <p>Mashinalar rusumi miqdori: </p>
+    <ul>
+      <li v-for="[key, value] of Object.entries(carCounts)" :key="key">
+        {{ key }}: {{ value }} ta
+      </li>
+    </ul>
     <p>Bugun kirgan mashinalar: {{ carsEnteredToday }}</p>
     <p>Bugun chiqishi kerak bo'lgan mashinalar: {{ carsToBeCountedToday }}</p>
   </div>
